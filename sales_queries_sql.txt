@@ -1,0 +1,20 @@
+SELECT product, SUM(amount) AS total_sales FROM sales_project
+GROUP BY product
+ORDER BY total_sales DESC;
+
+SELECT city, SUM(amount) AS total_sales FROM sales_project
+GROUP BY city
+ORDER BY total_sales DESC;
+
+SELECT order_id, amount, 
+CASE
+WHEN amount >= 300 THEN 'high'
+WHEN amount >= 200 THEN 'Medium'
+ELSE 'low'
+END AS sales_category FROM sales_project;
+
+SELECT * FROM sales_project
+WHERE amount > (SELECT AVG(amount) FROM sales_project);
+
+SELECT order_id, product, amount, city,
+RANK() OVER (ORDER BY amount DESC) AS RANK_SALES FROM sales_project;
